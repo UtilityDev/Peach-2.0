@@ -9,6 +9,6 @@ public class Program
 {
     public static void Main()
     {
-        ProjectManager.ProjectSetup();
+        // TODO: Choose between typical and web project
     }
 }

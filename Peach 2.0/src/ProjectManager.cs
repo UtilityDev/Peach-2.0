@@ -9,13 +9,25 @@ namespace Peach;
 public static class ProjectManager
 {
     // Interface for setting up projects
-    public static void ProjectSetup()
+    public static void ProjectSetup(bool web = false)
     {
-        string projectName      = ConsoleUtil.GetStringInput("Project Name");
-        string projectLanguage  = ConsoleUtil.GetStringInput("Programming Language");
-        string projectPath      = ConsoleUtil.GetStringInput("Project Path");
+        // Typical project setup
+        if (!web)
+        {
+            string projectName      = ConsoleUtil.GetStringInput("Project Name");
+            string projectLanguage  = ConsoleUtil.GetStringInput("Programming Language");
+            string projectPath      = ConsoleUtil.GetStringInput("Project Path");
 
-        CreateProject(projectName, projectLanguage, projectPath);
+            CreateProject(projectName, projectLanguage, projectPath);
+        }
+        // Web project setup
+        else
+        {
+            string projectName = ConsoleUtil.GetStringInput("Project Name");
+            string projectPath = ConsoleUtil.GetStringInput("Project Path");
+
+            CreateWebProject(projectName, projectPath);
+        }
     }
 
     // Create a project with the specified name, programming language, and at the specified directory.
@@ -34,9 +46,10 @@ public static class ProjectManager
                 // Create empty "main" file for given programming language
                 CreateFile($"main.{PullExtension(projectLanguage)}", projectDirectory);
 
-                ConsoleUtil.Log(ConsoleUtil.LogLevel.MESSAGE, "Project created!");
+                ConsoleUtil.Log(ConsoleUtil.LogLevel.MESSAGE, $"Project {projectName} created at {projectDirectory}! Happy Coding!");
             }
-            else // If path does not exist
+            // If path does not exist
+            else
             {
                 ConsoleUtil.Log(ConsoleUtil.LogLevel.ERROR, "The specified directory does not exist!");
                 ProjectSetup();
@@ -46,6 +59,37 @@ public static class ProjectManager
         else
         {
             ConsoleUtil.Log(ConsoleUtil.LogLevel.ERROR, $"{projectLanguage} is not a valid language!");
+            ProjectSetup();
+        }
+    }
+
+    // Set up basic web project (html, css, js)
+    public static void CreateWebProject(string projectName, string path)
+    {
+        // If specified path exists, create a new project directory
+        if (Directory.Exists(path))
+        {
+            // Create project directory inside given path
+            string projectDirectory = Path.Combine(path, projectName);
+            Directory.CreateDirectory(projectDirectory);
+
+            // 'src' (js) directory and 'img' directory for image assets
+            string srcDirectory = Path.Combine(projectDirectory, "src");
+            string imgDirectory = Path.Combine(projectDirectory, "img");
+            Directory.CreateDirectory(srcDirectory);
+            Directory.CreateDirectory(imgDirectory);
+
+            // Creating the fundamental web dev files
+            CreateFile("index.html",    projectDirectory, "<!DOCTYPE html>\n<html>\n</html>");
+            CreateFile("styles.css",    projectDirectory);
+            CreateFile("script.js",     srcDirectory);
+
+            ConsoleUtil.Log(ConsoleUtil.LogLevel.MESSAGE, $"Project {projectName} created at {projectDirectory}! Happy Coding!");
+        }
+        // If path does not exist
+        else
+        {
+            ConsoleUtil.Log(ConsoleUtil.LogLevel.ERROR, "The specified directory does not exist!");
             ProjectSetup();
         }
     }
