@@ -110,33 +110,27 @@ public static class ProjectManager
 
     // Return the file extension of the specified programming language.
     // In cases where the language does not exist or is in invalid in a way, return an empty string.
+    // The validity is checked when creating a project by checking if the method returned an empty string or not.
     public static string PullExtension(string language)
     {
         language = language.ToLower();
         switch (language)
         {
-            case "c#":
-                return "cs";
-            case "c++":
-                return "cpp";
-            case "c":
-                return "c";
-            case "python":
-                return "py";
-            case "kotlin":
-                return "kt";
-            case "java":
-                return "java";
-            case "rust":
-                return "rs";
-            case "javascript":
-                return "js";
-            case "css":
-                return "css";
-            case "html":
-                return "html";
-            default:
-                return "";
+            case "c#":              return "cs";
+            case "c++":             return "cpp";
+            case "c":               return "c";
+            case "python":          return "py";
+            case "kotlin":          return "kt";
+            case "java":            return "java";
+            case "rust":            return "rs";
+            case "javascript":      return "js";
+            case "css":             return "css";
+            case "html":            return "html";
+            case "f#":              return "fs";
+            case "haskell":         return "hs";
+            case "ruby":            return "rb";
+            case "lua":             return "lua";
+            default:                return "";
         }
     }
 }
