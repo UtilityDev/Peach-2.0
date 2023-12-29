@@ -80,7 +80,7 @@ public static class ProjectManager
             Directory.CreateDirectory(imgDirectory);
 
             // Creating the fundamental web dev files
-            CreateFile("index.html",    projectDirectory, "<!DOCTYPE html>\n<html>\n</html>");
+            CreateFile("index.html",    projectDirectory, "<!DOCTYPE html>\n<html>\n<h1>Hello World!</h1>\n</html>");
             CreateFile("styles.css",    projectDirectory);
             CreateFile("script.js",     srcDirectory);
 
