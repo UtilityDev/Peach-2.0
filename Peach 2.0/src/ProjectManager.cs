@@ -8,23 +8,45 @@ namespace Peach;
 */
 public static class ProjectManager
 {
+    // Interface for setting up projects
+    public static void ProjectSetup()
+    {
+        string projectName      = ConsoleUtil.GetStringInput("Project Name");
+        string projectLanguage  = ConsoleUtil.GetStringInput("Programming Language");
+        string projectPath      = ConsoleUtil.GetStringInput("Project Path");
+
+        CreateProject(projectName, projectLanguage, projectPath);
+    }
+
     // Create a project with the specified name, programming language, and at the specified directory.
     public static void CreateProject(string projectName, string projectLanguage, string path)
     {
-        // If specified path exists, create a new project directory
-        if (Directory.Exists(path))
+        // If the chosen language is valid
+        if (PullExtension(projectLanguage) != "")
         {
-            // Create project directory inside given path
-            string projectDirectory = Path.Combine(path, projectName);
-            Directory.CreateDirectory(projectDirectory);
+            // If specified path exists, create a new project directory
+            if (Directory.Exists(path))
+            {
+                // Create project directory inside given path
+                string projectDirectory = Path.Combine(path, projectName);
+                Directory.CreateDirectory(projectDirectory);
 
-            // Create empty "main" file for given programming language
-            CreateFile($"main.{ PullExtension(projectLanguage) }", projectDirectory);
+                // Create empty "main" file for given programming language
+                CreateFile($"main.{PullExtension(projectLanguage)}", projectDirectory);
 
-            ConsoleUtil.Log(ConsoleUtil.LogLevel.MESSAGE, "Project created!");
-        } else // If path does not exist
+                ConsoleUtil.Log(ConsoleUtil.LogLevel.MESSAGE, "Project created!");
+            }
+            else // If path does not exist
+            {
+                ConsoleUtil.Log(ConsoleUtil.LogLevel.ERROR, "The specified directory does not exist!");
+                ProjectSetup();
+            }
+        }
+        // If the chosen language is NOT valid
+        else
         {
-            ConsoleUtil.Log(ConsoleUtil.LogLevel.ERROR, "The specified directory does not exist!");
+            ConsoleUtil.Log(ConsoleUtil.LogLevel.ERROR, $"{projectLanguage} is not a valid language!");
+            ProjectSetup();
         }
     }
 

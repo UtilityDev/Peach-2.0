@@ -7,13 +7,6 @@ namespace Peach;
 */
 public static class ConsoleUtil
 {
-    public enum LogLevel
-    {
-        MESSAGE,
-        WARNING,
-        ERROR,
-    }
-
     public static string GetStringInput(string msg)
     {
         msg = msg.ToUpper();
@@ -22,21 +15,35 @@ public static class ConsoleUtil
         return Console.ReadLine();
     }
 
+    public enum LogLevel
+    {
+        MESSAGE,
+        WARNING,
+        ERROR,
+    }
     public static void Log(LogLevel level, string msg)
     {
         switch (level)
         {
             case LogLevel.MESSAGE:
-                Console.WriteLine("MESSAGE: " + msg);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine(msg);
+                Console.ResetColor();
                 break;
             case LogLevel.WARNING:
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("WARNING: " + msg);
+                Console.ResetColor();
                 break;
             case LogLevel.ERROR:
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("ERROR: " + msg);
+                Console.ResetColor();
                 break;
             default:
-                Console.WriteLine("MESSAGE: " + msg);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine(msg);
+                Console.ResetColor();
                 break;
         }
     }
