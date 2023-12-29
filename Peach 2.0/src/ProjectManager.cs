@@ -90,7 +90,7 @@ public static class ProjectManager
         else
         {
             ConsoleUtil.Log(ConsoleUtil.LogLevel.ERROR, "The specified directory does not exist!");
-            ProjectSetup();
+            ProjectSetup(true);
         }
     }
 
