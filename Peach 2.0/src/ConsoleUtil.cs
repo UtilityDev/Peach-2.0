@@ -2,6 +2,9 @@
 
 namespace Peach;
 
+/*
+** 'ConsoleUtil' class: simplifies the console. This class contains custom and simplified input and logging functionality.
+*/
 public static class ConsoleUtil
 {
     public enum LogLevel
