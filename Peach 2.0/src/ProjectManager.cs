@@ -12,19 +12,33 @@ public static class ProjectManager
     public static void CreateProject(string projectName, string projectLanguage, string path)
     {
         // If specified path exists, create a new project directory
-        if (Path.Exists(path))
+        if (Directory.Exists(path))
         {
             // Create project directory inside given path
             string projectDirectory = Path.Combine(path, projectName);
             Directory.CreateDirectory(projectDirectory);
 
             // Create empty "main" file for given programming language
-            File.WriteAllText(Path.Combine(projectDirectory, $"main.{PullExtension(projectLanguage)}"), "");
-            
+            CreateFile($"main.{ PullExtension(projectLanguage) }", projectDirectory);
+
             ConsoleUtil.Log(ConsoleUtil.LogLevel.MESSAGE, "Project created!");
         } else // If path does not exist
         {
             ConsoleUtil.Log(ConsoleUtil.LogLevel.ERROR, "The specified directory does not exist!");
+        }
+    }
+
+    // Create a file at the specified path with optional content
+    public static void CreateFile(string fileName, string path, string content = "")
+    {
+        // If path exists, create at given path
+        if (Directory.Exists(path))
+        {
+            File.WriteAllText(Path.Combine(path, fileName), content);
+        }
+        else
+        {
+            ConsoleUtil.Log(ConsoleUtil.LogLevel.ERROR, "The specified directory does not exist.");
         }
     }
 
