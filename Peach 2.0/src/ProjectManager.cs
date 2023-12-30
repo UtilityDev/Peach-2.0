@@ -21,7 +21,7 @@ public static class ProjectManager
             CreateProject(projectName, projectLanguage, projectPath);
         }
         // Web project setup
-        else
+        if (web)
         {
             string projectName = ConsoleUtil.GetStringInput("Project Name");
             string projectPath = ConsoleUtil.GetStringInput("Project Path");

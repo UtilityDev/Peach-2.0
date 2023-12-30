@@ -4,7 +4,7 @@ namespace Peach;
 
 /*
 ** 'Program' class: Program entry point. 
-** Even though it may make more sense to write a method inside 'ProjectManager' that handles what this class does,
+** Even thought may make more sense to write a method inside 'ProjectManager' that handles what this class does,
 ** I decided to just write it in here anyways. 'ProjectManager' is bloated enough as it is, anyways.
 ** Also, this code sucks ass. Please, someone, make it look pretty.
 */
